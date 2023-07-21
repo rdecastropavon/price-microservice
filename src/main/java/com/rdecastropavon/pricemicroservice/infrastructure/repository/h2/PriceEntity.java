@@ -1,5 +1,9 @@
 package com.rdecastropavon.pricemicroservice.infrastructure.repository.h2;
 
+import com.rdecastropavon.pricemicroservice.domain.Brand;
+import com.rdecastropavon.pricemicroservice.domain.Price;
+import com.rdecastropavon.pricemicroservice.domain.Product;
+import com.rdecastropavon.pricemicroservice.domain.Rate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -49,4 +53,9 @@ public class PriceEntity {
   @NotNull
   @Column(name = "CURR", length = 3)
   private String curr;
+
+  public Price toPrice() {
+    return new Price(new Brand(brand.getId()), startDate, endDate, new Rate(priceList), new Product(productID),
+      priority, price, curr);
+  }
 }
