@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class SpringDataH2PriceRepositoryTest {
-  
+
   @Autowired
   private SpringDataH2PriceRepository springDataH2PriceRepository;
 
@@ -30,6 +30,11 @@ class SpringDataH2PriceRepositoryTest {
     assertThat(springDataH2PriceRepository).isNotNull();
   }
 
+  /** Arguments explanation:
+   * Index 0=actual Brand ID
+   * Index 1=actual Product ID
+   * Index 2=actual Price Request Date
+   * Index 3=Expected PriceEntity **/
   private static Stream<Arguments> argumentsForFindByMaxPriority_ShouldRetrieveThePriceWithGreaterPriorityForABrandProductAndDate() {
     return Stream.of(
       Arguments.of(TestVariablesUtils.brandID1, TestVariablesUtils.productID1, TestVariablesUtils.priceRequestDate1,
@@ -47,14 +52,14 @@ class SpringDataH2PriceRepositoryTest {
   @ParameterizedTest
   @MethodSource("argumentsForFindByMaxPriority_ShouldRetrieveThePriceWithGreaterPriorityForABrandProductAndDate")
   void findByMaxPriority_ShouldRetrieveThePriceWithGreaterPriorityForABrandProductAndDate(Long brandId, Long productId,
-    LocalDateTime date, PriceEntity expectedPrice) {
+    LocalDateTime date, PriceEntity expectedPriceEntity) {
 
     Page<PriceEntity> pricePage = springDataH2PriceRepository.findByMaxPriority(brandId, productId, date,
       PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "priority")));
 
-    PriceEntity actualPrice = pricePage.stream().findFirst().orElse(null);
+    PriceEntity actualPriceEntity = pricePage.stream().findFirst().orElse(null);
 
-    assertEquals(actualPrice, expectedPrice);
+    assertEquals(actualPriceEntity, expectedPriceEntity);
   }
 
 }
