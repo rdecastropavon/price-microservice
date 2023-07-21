@@ -1,5 +1,8 @@
 package com.rdecastropavon.pricemicroservice.domain;
 
+import com.rdecastropavon.pricemicroservice.infrastructure.repository.h2.BrandEntity;
+import com.rdecastropavon.pricemicroservice.infrastructure.repository.h2.PriceEntity;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -95,4 +98,20 @@ public class TestVariablesUtils {
   public static final Price price4 = new Price(brand1, priceStartDate4, priceEndDate4, rate4, product1, priority1,
     priceValue4, currencyCode1);
 
+  //Brand Entities
+  public static final BrandEntity brandEntity1 = new BrandEntity(brandID1, "ZARA");
+
+  //Prices Entities
+  public static final PriceEntity priceEntity1 = new PriceEntity(brandEntity1, priceStartDate1, priceEndDate1, rateID1,
+    productID1, priority0, priceValue1, currencyCode1);
+
+  public static final PriceEntity priceEntity2 = new PriceEntity(brandEntity1, priceStartDate2, priceEndDate2, rateID2,
+    productID1, priority1, priceValue2, currencyCode1);
+
+  public static final PriceEntity priceEntity3 = new PriceEntity(brandEntity1, priceStartDate3, priceEndDate3, rateID3,
+    productID1, priority1, priceValue3, currencyCode1);
+
+  public static final PriceEntity priceEntity4 = new PriceEntity(brandEntity1, priceStartDate4, priceEndDate4, rateID4,
+    productID1, priority1, priceValue4, currencyCode1);
+  
 }
