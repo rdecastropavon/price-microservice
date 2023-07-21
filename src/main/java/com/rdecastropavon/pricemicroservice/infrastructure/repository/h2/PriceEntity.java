@@ -42,7 +42,7 @@ public class PriceEntity {
   private Long productID;
   @NotNull
   @Column(name = "PRIORITY")
-  private Integer priority;
+  private Short priority;
   @NotNull
   @Column(name = "PRICE")
   private BigDecimal price;
