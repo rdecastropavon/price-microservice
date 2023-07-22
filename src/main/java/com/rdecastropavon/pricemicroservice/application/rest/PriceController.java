@@ -1,5 +1,6 @@
 package com.rdecastropavon.pricemicroservice.application.rest;
 
+import com.rdecastropavon.pricemicroservice.domain.Price;
 import com.rdecastropavon.pricemicroservice.domain.service.PriceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -38,6 +39,16 @@ public class PriceController {
     @PathVariable @Schema(description = "Date", example = "2023-11-16T18-30-00", format = "yyyy-MM-dd'T'HH-mm-ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH-mm-ss") LocalDateTime timeStamp) {
 
-    return new PriceResponse();
+    Price price = priceService.findValidPrice(brandID, productID, timeStamp);
+
+    return PriceResponse.builder()
+      .brandID(brandID)
+      .productID(productID)
+      .rateID(price.getRate().getId())
+      .startDate(price.getStartDate())
+      .endDate(price.getEndDate())
+      .price(price.getValue())
+      .curr(price.getCurr())
+      .build();
   }
 }
