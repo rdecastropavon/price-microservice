@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -47,6 +48,26 @@ class H2PriceRepositoryTest {
       PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "priority")));
 
     assertNotNull(actualPrice);
+  }
+
+  @Test
+  void findByMaxPriority_ShouldReturnANullPriceIfRepositoryDoesNotFindAValue() {
+    Long brandID = TestVariablesUtils.brandID1;
+    Long productID = TestVariablesUtils.productID1;
+    LocalDateTime priceRequestDate = TestVariablesUtils.priceRequestDate1;
+
+    List<PriceEntity> prices = List.of();
+    Page<PriceEntity> pagedResponse = new PageImpl<>(prices);
+
+    when(springDataH2PriceRepository.findByMaxPriority(Mockito.anyLong(), Mockito.anyLong(),
+      Mockito.any(LocalDateTime.class), Mockito.any(Pageable.class))).thenReturn(pagedResponse);
+
+    Price actualPrice = h2PriceRepository.findByMaxPriority(brandID, productID, priceRequestDate).orElse(null);
+
+    verify(springDataH2PriceRepository).findByMaxPriority(brandID, productID, priceRequestDate,
+      PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "priority")));
+
+    assertNull(actualPrice);
   }
 
 }
