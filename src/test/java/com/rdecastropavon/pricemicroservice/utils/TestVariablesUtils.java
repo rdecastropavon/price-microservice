@@ -1,6 +1,10 @@
-package com.rdecastropavon.pricemicroservice.domain;
+package com.rdecastropavon.pricemicroservice.utils;
 
 import com.rdecastropavon.pricemicroservice.application.rest.PriceResponse;
+import com.rdecastropavon.pricemicroservice.domain.Brand;
+import com.rdecastropavon.pricemicroservice.domain.Price;
+import com.rdecastropavon.pricemicroservice.domain.Product;
+import com.rdecastropavon.pricemicroservice.domain.Rate;
 import com.rdecastropavon.pricemicroservice.infrastructure.repository.h2.BrandEntity;
 import com.rdecastropavon.pricemicroservice.infrastructure.repository.h2.PriceEntity;
 

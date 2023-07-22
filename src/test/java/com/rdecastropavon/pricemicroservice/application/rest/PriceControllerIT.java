@@ -1,7 +1,7 @@
 package com.rdecastropavon.pricemicroservice.application.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rdecastropavon.pricemicroservice.domain.TestVariablesUtils;
+import com.rdecastropavon.pricemicroservice.utils.TestVariablesUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;

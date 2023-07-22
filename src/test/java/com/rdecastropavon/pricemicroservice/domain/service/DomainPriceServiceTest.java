@@ -1,8 +1,8 @@
 package com.rdecastropavon.pricemicroservice.domain.service;
 
 import com.rdecastropavon.pricemicroservice.domain.Price;
-import com.rdecastropavon.pricemicroservice.domain.TestVariablesUtils;
 import com.rdecastropavon.pricemicroservice.domain.repository.PriceRepository;
+import com.rdecastropavon.pricemicroservice.utils.TestVariablesUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
