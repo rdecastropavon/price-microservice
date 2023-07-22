@@ -1,5 +1,6 @@
 package com.rdecastropavon.pricemicroservice.domain;
 
+import com.rdecastropavon.pricemicroservice.application.rest.PriceResponse;
 import com.rdecastropavon.pricemicroservice.infrastructure.repository.h2.BrandEntity;
 import com.rdecastropavon.pricemicroservice.infrastructure.repository.h2.PriceEntity;
 
@@ -21,6 +22,8 @@ public class TestVariablesUtils {
   public static final Product product1 = new Product(productID1);
 
   //Price request dates
+  public static final LocalDateTime priceRequestDateNoData = LocalDateTime.parse("2222-06-14-10.00.00",
+    DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss"));
   public static final LocalDateTime priceRequestDate1 = LocalDateTime.parse("2020-06-14-10.00.00",
     DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss"));
 
@@ -68,9 +71,6 @@ public class TestVariablesUtils {
   public static final Long rateID3 = 3L;
   public static final Long rateID4 = 4L;
   public static final Rate rate1 = new Rate(rateID1);
-  public static final Rate rate2 = new Rate(rateID2);
-  public static final Rate rate3 = new Rate(rateID3);
-  public static final Rate rate4 = new Rate(rateID4);
 
   //Priorities
   public static final Short priority0 = 0;
@@ -89,14 +89,18 @@ public class TestVariablesUtils {
   public static final Price price1 = new Price(brand1, priceStartDate1, priceEndDate1, rate1, product1, priority0,
     priceValue1, currencyCode1);
 
-  public static final Price price2 = new Price(brand1, priceStartDate2, priceEndDate2, rate2, product1, priority1,
-    priceValue2, currencyCode1);
+  //Price Responses
+  public static final PriceResponse priceResponse1 = new PriceResponse(productID1, brandID1, rateID1, priceStartDate1,
+    priceEndDate1, priceValue1, currencyCode1);
 
-  public static final Price price3 = new Price(brand1, priceStartDate3, priceEndDate3, rate3, product1, priority1,
-    priceValue3, currencyCode1);
+  public static final PriceResponse priceResponse2 = new PriceResponse(productID1, brandID1, rateID2, priceStartDate2,
+    priceEndDate2, priceValue2, currencyCode1);
 
-  public static final Price price4 = new Price(brand1, priceStartDate4, priceEndDate4, rate4, product1, priority1,
-    priceValue4, currencyCode1);
+  public static final PriceResponse priceResponse3 = new PriceResponse(productID1, brandID1, rateID3, priceStartDate3,
+    priceEndDate3, priceValue3, currencyCode1);
+
+  public static final PriceResponse priceResponse4 = new PriceResponse(productID1, brandID1, rateID4, priceStartDate4,
+    priceEndDate4, priceValue4, currencyCode1);
 
   //Brand Entities
   public static final BrandEntity brandEntity1 = new BrandEntity(brandID1, "ZARA");
@@ -113,5 +117,4 @@ public class TestVariablesUtils {
 
   public static final PriceEntity priceEntity4 = new PriceEntity(brandEntity1, priceStartDate4, priceEndDate4, rateID4,
     productID1, priority1, priceValue4, currencyCode1);
-  
 }
