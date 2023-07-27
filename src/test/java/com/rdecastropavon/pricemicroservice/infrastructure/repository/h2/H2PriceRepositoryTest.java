@@ -8,14 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -36,16 +31,14 @@ class H2PriceRepositoryTest {
     Long productID = TestVariablesUtils.productID1;
     LocalDateTime priceRequestDate = TestVariablesUtils.priceRequestDate1;
 
-    List<PriceEntity> prices = List.of(TestVariablesUtils.priceEntity1);
-    Page<PriceEntity> pagedResponse = new PageImpl<>(prices);
+    PriceEntity returnedPriceEntity = TestVariablesUtils.priceEntity1;
 
     when(springDataH2PriceRepository.findByMaxPriority(Mockito.anyLong(), Mockito.anyLong(),
-      Mockito.any(LocalDateTime.class), Mockito.any(Pageable.class))).thenReturn(pagedResponse);
+      Mockito.any(LocalDateTime.class))).thenReturn(Optional.of(returnedPriceEntity));
 
     Price actualPrice = h2PriceRepository.findByMaxPriority(brandID, productID, priceRequestDate).orElse(null);
 
-    verify(springDataH2PriceRepository).findByMaxPriority(brandID, productID, priceRequestDate,
-      PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "priority")));
+    verify(springDataH2PriceRepository).findByMaxPriority(brandID, productID, priceRequestDate);
 
     assertNotNull(actualPrice);
   }
@@ -56,16 +49,12 @@ class H2PriceRepositoryTest {
     Long productID = TestVariablesUtils.productID1;
     LocalDateTime priceRequestDate = TestVariablesUtils.priceRequestDate1;
 
-    List<PriceEntity> prices = List.of();
-    Page<PriceEntity> pagedResponse = new PageImpl<>(prices);
-
     when(springDataH2PriceRepository.findByMaxPriority(Mockito.anyLong(), Mockito.anyLong(),
-      Mockito.any(LocalDateTime.class), Mockito.any(Pageable.class))).thenReturn(pagedResponse);
+      Mockito.any(LocalDateTime.class))).thenReturn(Optional.empty());
 
     Price actualPrice = h2PriceRepository.findByMaxPriority(brandID, productID, priceRequestDate).orElse(null);
 
-    verify(springDataH2PriceRepository).findByMaxPriority(brandID, productID, priceRequestDate,
-      PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "priority")));
+    verify(springDataH2PriceRepository).findByMaxPriority(brandID, productID, priceRequestDate);
 
     assertNull(actualPrice);
   }

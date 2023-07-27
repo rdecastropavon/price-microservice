@@ -8,11 +8,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,10 +52,8 @@ class SpringDataH2PriceRepositoryTest {
   void findByMaxPriority_ShouldRetrieveThePriceWithGreaterPriorityForABrandProductAndDate(Long brandId, Long productId,
     LocalDateTime date, PriceEntity expectedPriceEntity) {
 
-    Page<PriceEntity> pricePage = springDataH2PriceRepository.findByMaxPriority(brandId, productId, date,
-      PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "priority")));
-
-    PriceEntity actualPriceEntity = pricePage.stream().findFirst().orElse(null);
+    Optional<PriceEntity> priceEntity = springDataH2PriceRepository.findByMaxPriority(brandId, productId, date);
+    PriceEntity actualPriceEntity = priceEntity.orElse(null);
 
     assertEquals(actualPriceEntity, expectedPriceEntity);
   }
