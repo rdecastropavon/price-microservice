@@ -80,22 +80,10 @@ Even if there is no need to have it with the current functionality, a Brand Enti
 base
 table and FK from the Prices table. At the moment we are not using any Collection to store the OneToMany relationship
 because we
-are not using it. In case of adding it the fetching strategy should be reviewed (probably with Lazy loading) if there is
+are not using it. In case of adding it the fetching strategy should be reviewed (probably with Lazy loading or native
+query for performance reasons) if there is
 a
 big volume of data in a "real" case scenario.
-
-Performance note: the query that we are using at the moment in our repository for retrieving a Price (when there is more
-than one
-row with different priorities) is using a Pageable to obtain only the first row. This produces internally a chain of
-queries that
-could cause performance issues depending on the volume and distribution of data in a "real" scenario (for example: it
-needs another
-query with a "count" for total number of pages). This is because JPA does not allow queries with FETCH clauses. If the
-performance
-becomes an issue we could use native queries (involves possible additional work for parsing the results) and use
-something like:
-
-`SELECT * FROM PRICES P WHERE E.brandID=?1 AND E.productID=?2 AND ?3 BETWEEN P.START_DATE AND P.END_DATE ORDER BY P.PRIORITY DESC FETCH FIRST 1 ROWS ONLY`
 
 A DB initialization script has been used to populate values when starting the application. Details can be found in the
 project dir
